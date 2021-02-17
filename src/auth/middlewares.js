@@ -3,7 +3,7 @@ const AuthorSchema = require("../authors/schema");
 
 const authorize = async (req, res, next) => {
   try {
-    const token = req.header("Authorization").replace("Bearer", "");
+    const token = req.header("Authorization").replace("Bearer ", "");
     const decoded = await verifyJWT(token);
     const author = await AuthorSchema.findOne({
       _id: decoded._id,
