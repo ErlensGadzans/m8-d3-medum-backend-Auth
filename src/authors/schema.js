@@ -8,6 +8,18 @@ const AuthorSchema = new Schema({
   password: String,
 });
 
+AuthorSchema.statics.findByCredentials = async function (username, plainPW) {
+  const author = await this.findOne({ username });
+
+  if (author) {
+    const isMatch = await bcrypt.compare(plainPW, author.password);
+    if (isMatch) return author;
+    else return null;
+  } else {
+    return null;
+  }
+};
+
 AuthorSchema.pre("save", async function (next) {
   //pre saving authors data
   const author = this;
