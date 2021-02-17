@@ -33,4 +33,4 @@ const verifyJWT = (token) =>
     })
   );
 
-module.exports = { authenticate };
+module.exports = { authenticate, verifyJWT };
